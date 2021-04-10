@@ -1,0 +1,1 @@
+web: gunicorn midas_task.wsgi

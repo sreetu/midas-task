@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIDAS IIITD</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<!--loads backrgound for signup page-->
+<style>
+body{
+  background-image: url("{% static 'app/group.jpg' %}");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-opacity: 0.3;
+}
+@media only screen and (min-device-width: 400px) {
+  .body{
+    background-image: url("{% static 'app/group.jpg' %}");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+</style>
+
+<div class="sign">
+    <nav class="navbar navbar-expand-lg navbar-dark scrolling-navbar">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>Midas IIITD
+        </button>
+        <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'app/logo.jpg' %}" alt="M" height="60px" width="60px"></a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active my-2 mx-sm-2">
+                    <a class="nav-link" aria-haspopup="true" aria-expanded="false" href="{% url 'index' %}">Midas IIITD<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active my-2 mx-sm-2" ><a class="nav-link" aria-haspopup="true" aria-expanded="false" href="{% url 'app:register' %}">SignUp</a></li>
+                {% if user.is_authenticated %}
+                <li class="nav-item active my-2 mx-sm-2"><a class="nav-link" aria-haspopup="true" aria-expanded="false" href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                <li class="nav-item active my-2 mx-sm-2"><a class="nav-link" aria-haspopup="true" aria-expanded="false" href="{% url 'app:user_login' %}">Login</a></li>
+                {% endif %}
+
+                <li class="nav-item active my-2 mx-sm-2">
+                    <a aria-haspopup="true" aria-expanded="false" href="{% url 'index' %}"> Home <i class="fas fa-angle-down"></i><span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active my-2 mx-sm-2">
+                    <a aria-haspopup="true" aria-expanded="false" href="{% url 'index' %}"> Pages<i class="fas fa-angle-down"></i><span class=" sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active my-2 mx-sm-2">
+                    <a aria-haspopup="true" aria-expanded="false" href="{% url 'index' %}"> Services<i class="fas fa-angle-down"></i><span class=" sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active my-2 mx-sm-2">
+                    <a aria-haspopup="true" aria-expanded="false" href="{% url 'index' %}"> Blog<i class="fas fa-angle-down"></i><span class=" sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active my-2 mx-sm-2">
+                    <a aria-haspopup="true" aria-expanded="false" href="{% url 'index' %}"> Contacts<i class="fas fa-phone"></i><span class=" sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active my-2 mx-sm-2">
+                    <a aria-haspopup="true" aria-expanded="false" href="{% url 'index' %}"><i class="fa fa-search" style="color:blue;float:right;margin-left:14vw"></i><span class=" sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active my-2 mx-sm-2">
+                    <a aria-haspopup="true" aria-expanded="false" href="{% url 'index' %}"><i class="fas fa-bars" style="color:blue;float:right"></i><span class=" sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="box2">
+        {% if registered %}
+        <h1>Thank you for registration</h1>
+        {% else %}
+        <h2>SignUp</h2>
+        <form action="{% url 'app:user_login' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="entry">
+                <label>Name</label>
+                <input type="text" name="" required="">
+            </div>
+            <div class="entry">
+                <label>Age</label><input type="number" name="" required=""></div>
+            <div class="entry">
+                <label>Contact Number</label><input type="tel" name="" required=""></div>
+            <div class="entry">
+                <label>Address</label><input type="text" name="" required=""></div>
+            <div class="entry">
+                <label>Pincode</label><input type="tel" name="" required=""></div>
+            <div class="entry">
+                <label>Email ID</label><input type="email" name="" required=""></div>
+            <div class="entry">
+                <label>Password</label><input type="password" name="" required=""></div>
+            <div class="entry">
+                <label>Confirm Password</label><input type="password" name="" required=""></div>
+            <input type="submit" name="" value="SignUp">
+        </form>
+        {% endif %}
+    </div>
+
+</body>
+</html>
